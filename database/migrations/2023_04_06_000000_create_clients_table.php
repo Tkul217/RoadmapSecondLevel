@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->integer('VAT');
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

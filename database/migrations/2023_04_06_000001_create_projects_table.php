@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('description');
             $table->timestamp('deadline');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
