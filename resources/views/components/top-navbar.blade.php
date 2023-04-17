@@ -29,7 +29,7 @@
             <div class="flex items-center pl-6">
                 <div class="flex-shrink-0 md:hidden">
 
-                    <a href="#" class="text-white flex items-center space-x-2 group">
+                    <a href="{{route('dashboard')}}" class="text-white flex items-center space-x-2 group">
                         <div>
                             <svg class="h-8 w-8 transition-transform duration-300 group-hover:-rotate-45 "
                                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,7 +166,7 @@
 
                 ">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#" class="text-white block px-3 py-2 rounded-md text-base font-medium"
+            <a href="{{route('dashboard')}}" class="@if(Route::is('dashboard')) bg-gray-900 @endif text-white block px-3 py-2 rounded-md text-base font-medium"
                aria-current="page">Dashboard</a>
 
             <a href="#"

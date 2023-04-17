@@ -7,7 +7,7 @@
 
     <header class=" h-[64px] py-2 shadow-lg px-4 md:sticky top-0 bg-gray-800 z-40">
         <!-- logo -->
-        <a href="#" class="text-white flex items-center space-x-2 group hover:text-white">
+        <a href="{{route('dashboard')}}" class="text-white flex items-center space-x-2 group hover:text-white">
             <div>
                 <svg class="h-8 w-8 transition-transform duration-300 group-hover:-rotate-45 " fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">

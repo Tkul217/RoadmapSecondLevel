@@ -4,8 +4,8 @@
 
         <!-- ITEM -->
         <li class="text-sm text-gray-500 ">
-            <a href="#"
-               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 ">
+            <a href="{{route('dashboard')}}"
+               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 @if(Route::is('dashboard')) bg-gray-700 text-white @endif">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,7 +23,7 @@
 
         <!-- List ITEM -->
         <li class="text-sm text-gray-500 ">
-            <a href="#" @click.prevent="selected = (selected === 'Team' ? '':'Team')"
+            <a href="#" @click.prevent="selected = (selected === 'User' ? '':'User')"
                class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,9 +31,9 @@
                               d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 </div>
-                <div>Team</div>
+                <div>Users</div>
                 <div class="absolute right-1.5 transition-transform duration-300"
-                     :class="{ 'rotate-180': (selected === 'Team') }">
+                     :class="{ 'rotate-180': (selected === 'User') }">
                     <svg class=" h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M19 9l-7 7-7-7" />
@@ -43,7 +43,7 @@
 
 
             <div class="pl-4 pr-2 overflow-hidden transition-all transform translate duration-300 max-h-0 "
-                 :style="(selected === 'Team') ? 'max-height: ' + $el.scrollHeight + 'px':''">
+                 :style="(selected === 'User') ? 'max-height: ' + $el.scrollHeight + 'px':''">
                 <ul class="flex flex-col mt-2 pl-2 text-gray-500 border-l border-gray-700 space-y-1 text-xs">
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
@@ -57,6 +57,47 @@
                         <a href="#"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Create User </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="text-sm text-gray-500 ">
+            <a href="#" @click.prevent="selected = (selected === 'Client' ? '':'Client')"
+               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+                <div class="pr-2">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
+                <div>Clients</div>
+                <div class="absolute right-1.5 transition-transform duration-300"
+                     :class="{ 'rotate-180': (selected === 'Client') }">
+                    <svg class=" h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </a>
+
+
+            <div class="pl-4 pr-2 overflow-hidden transition-all transform translate duration-300 max-h-0 "
+                 :style="(selected === 'Client') ? 'max-height: ' + $el.scrollHeight + 'px':''">
+                <ul class="flex flex-col mt-2 pl-2 text-gray-500 border-l border-gray-700 space-y-1 text-xs">
+                    <!-- Item -->
+                    <li class="text-sm text-gray-500 ">
+                        <a href="#"
+                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+                            <div> Clients List </div>
+                        </a>
+                    </li>
+                    <!-- Item -->
+                    <li class="text-sm text-gray-500 ">
+                        <a href="#"
+                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+                            <div> Create Client </div>
                         </a>
                     </li>
                 </ul>
