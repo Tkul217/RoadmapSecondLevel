@@ -36,7 +36,7 @@
             <div>
                 {{ $slot }}
             </div>
-            <footer class="border-t p-4 pb-3 text-xs bg-gray-200">
+            <footer class="border-t p-4 pb-3 text-xs bg-gray-200 mt-auto">
                 {{__('2022 © Design & Develop by Farnous.')}}
             </footer>
         @endauth
