@@ -117,10 +117,10 @@
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95" role="menu"
                              aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            <a href="{{route('profile.user')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                role="menuitem" tabindex="-1" id="user-menu-item-0">My Profile</a>
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            <a href="{{route('profile.projects')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                role="menuitem" tabindex="-1" id="user-menu-item-1">Projects</a>
 
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -197,9 +197,12 @@
 
             </div>
             <div class="mt-3 px-2 space-y-1">
-                <a href="#"
+                <a href="{{route('profile.user')}}"
                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your
                     Profile</a>
+
+                <a href="{{route('profile.projects')}}"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Projects</a>
 
                 <a href="#"
                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign
