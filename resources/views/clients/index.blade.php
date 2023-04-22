@@ -10,7 +10,6 @@
                             <th scope="col" class="px-6 py-4">VAT</th>
                             <th scope="col" class="px-6 py-4">Address</th>
                             <th scope="col" class="px-6 py-4">Created at</th>
-                            <th scope="col" class="px-6 py-4">Updated at</th>
                             <th scope="col" class="px-6 py-4">Actions</th>
                         </tr>
                         </thead>
@@ -23,7 +22,6 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{$client->VAT}}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{$client->address}}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{$client->created_at}}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{$client->updated_at}}</td>
                                     <td class="whitespace-nowrap px-6 py-4 flex justify-around gap-5">
                                         <a href="{{route('clients.edit', $client)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Edit</a>
                                         <form action="{{route('clients.destroy', $client)}}" method="post">
