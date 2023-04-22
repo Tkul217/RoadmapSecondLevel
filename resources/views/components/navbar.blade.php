@@ -1,5 +1,5 @@
 <!-- nav -->
-<nav class="px-4 pt-4 scroller overflow-y-scroll max-h-[calc(100vh-64px)]" x-data="{selected:'Tasks'}">
+<nav class="px-4 pt-4 scroller overflow-y-scroll max-h-[calc(100vh-64px)]" x-data="{selected:''}">
     <ul class="flex flex-col space-y-2">
 
         <!-- ITEM -->
@@ -130,14 +130,14 @@
                 <ul class="flex flex-col mt-2 pl-2 text-gray-500 border-l border-gray-700 space-y-1 text-xs">
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href="#"
+                        <a href="{{route('projects.index')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div>List </div>
                         </a>
                     </li>
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href="#"
+                        <a href="{{route('projects.create')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Create Project </div>
                         </a>

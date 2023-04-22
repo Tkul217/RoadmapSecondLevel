@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::resource('clients', ClientController::class)->except('show');
-//    Route::resource();
-//    Route::resource();
+    Route::resource('projects', ProjectController::class);
 });
 
 
