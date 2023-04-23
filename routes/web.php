@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Profile\ProjectController as ProfileProject;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
 
     Route::resource('users', UserController::class);
+
+    Route::resource('tasks', TaskController::class);
+
+    Route::get('/userTasks', [TaskController::class, 'userTasks'])->name('user-tasks');
+
+    Route::get('/activeTasks', [TaskController::class, 'activeTasks'])->name('active-tasks');
+
+    Route::get('/progressTasks', [TaskController::class, 'progressTasks'])->name('progress-tasks');
+
+    Route::get('/closedTasks', [TaskController::class, 'closedTasks'])->name('closed-tasks');
 
     Route::prefix('profile')->name('profile.')->group(function () {
 
