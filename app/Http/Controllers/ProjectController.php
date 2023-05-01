@@ -39,6 +39,10 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        if (!$project){
+            abort(404);
+        }
+
         return view('projects.show', [
             'project' => $project
         ]);
@@ -47,6 +51,10 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $data = $this->preparingData();
+        if (!$project || !$data){
+            abort(404);
+        }
+
         return view('projects.edit', [
             'project' => $project,
             'users' => $data['users'],
@@ -57,6 +65,10 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request, Project $project)
     {
+        if (!$project){
+            abort(404);
+        }
+
         $data = $request->validated();
 
         $project->update($data);
@@ -66,14 +78,18 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
+        if (!$project){
+            abort(404);
+        }
+
         try {
             $project->delete();
-            return redirect()->route('projects.index');
         } catch (QueryException $exception) {
             throw new \Exception($exception->getMessage());
         } catch (\Exception $exception) {
             abort(500);
         }
+        return redirect()->route('projects.index');
     }
 
     public function preparingData(): array

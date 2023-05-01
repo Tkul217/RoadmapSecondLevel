@@ -71,6 +71,10 @@ class TaskController extends Controller
     }
 
     public function show(Task $task){
+        if (!$task){
+            abort(404);
+        }
+
         return view('tasks.show', [
             'task' => $task
         ]);
@@ -89,24 +93,37 @@ class TaskController extends Controller
     }
 
     public function edit(Task $task){
+        if (!$task){
+            abort(404);
+        }
+
         return view('tasks.edit', [
             'data' => collect($task)->merge($this->getData())
         ]);
     }
 
     public function update(Task $task, TaskRequest $request){
+        if (!$task){
+            abort(404);
+        }
+
         $task->update($request->validated());
 
         return redirect()->route('tasks.show', $task);
     }
 
     public function destroy(Task $task){
+        if (!$task){
+            abort(404);
+        }
+
         try {
             $task->delete();
-            return redirect()->route('tasks.index');
         } catch (QueryException $exception){
             throw new \Exception('You can not delete this task, because '.$exception->getMessage());
         }
+
+        return redirect()->route('tasks.index');
     }
 
     public function getData(): array

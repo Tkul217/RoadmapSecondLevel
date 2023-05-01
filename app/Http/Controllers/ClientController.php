@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Http\Requests\ClientRequest;
+use Illuminate\Database\QueryException;
 
 class ClientController extends Controller
 {
@@ -31,6 +32,10 @@ class ClientController extends Controller
 
     public function edit(Client $client)
     {
+        if (!$client){
+            abort(404);
+        }
+
         return view('clients.edit', [
             'client' => $client
         ]);
@@ -38,6 +43,10 @@ class ClientController extends Controller
 
     public function update(ClientRequest $request, Client $client)
     {
+        if (!$client){
+            abort(404);
+        }
+
         $data = $request->validated();
 
         $client->updateOrFail($data);
@@ -47,7 +56,14 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
-        $client->deleteOrFail();
+        if (!$client){
+            abort(404);
+        }
+        try {
+            $client->delete();
+        } catch (QueryException $exception) {
+            throw new \Exception('You cannot delete this client, because' . $exception->getMessage())
+        }
         return redirect()->route('clients.index');
     }
 }
