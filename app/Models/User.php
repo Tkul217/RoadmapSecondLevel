@@ -60,8 +60,20 @@ class User extends Authenticatable
         );
     }
 
+    public function emailVerifiedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->format('Y-m-d')
+        );
+    }
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
     }
 }

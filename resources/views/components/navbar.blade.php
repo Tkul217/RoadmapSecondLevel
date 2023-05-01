@@ -71,13 +71,6 @@
                             <div> Users List </div>
                         </a>
                     </li>
-                    <!-- Item -->
-                    <li class="text-sm text-gray-500 ">
-                        <a href="{{route('users.create')}}"
-                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> Create User </div>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </li>

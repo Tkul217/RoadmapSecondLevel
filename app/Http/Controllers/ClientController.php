@@ -62,7 +62,7 @@ class ClientController extends Controller
         try {
             $client->delete();
         } catch (QueryException $exception) {
-            throw new \Exception('You cannot delete this client, because' . $exception->getMessage())
+            throw new \Exception('You cannot delete this client, because' . $exception->getMessage());
         }
         return redirect()->route('clients.index');
     }

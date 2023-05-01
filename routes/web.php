@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('projects', ProjectController::class);
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->only(['index', 'show']);
 
     Route::prefix('tasks')->name('tasks.')->group(function (){
         Route::get('userTasks', [TaskController::class, 'userTasks'])->name('user-tasks');
