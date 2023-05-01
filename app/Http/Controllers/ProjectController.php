@@ -99,7 +99,8 @@ class ProjectController extends Controller
         $statuses = [
           'Draft' => Project::DRAFT,
           'Open' => Project::OPEN,
-          'In Process' => Project::IN_PROCESS
+          'In Process' => Project::IN_PROCESS,
+          'Finished' => Project::FINISHED
         ];
 
         return [

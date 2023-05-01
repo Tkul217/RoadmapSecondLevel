@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <a href="">
+                        <a href="{{route('users.show', $project->user->id)}}">
                             <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
                                 <div class="flex gap-3 pb-3">
                                     <h1 class="w-56 h-2 mt-4 rounded-lg">Related User: </h1>
@@ -39,7 +39,7 @@
                             </div>
                         </a>
 
-                        <a href="">
+                        <a href="{{route('clients.edit', $project->client->id)}}">
                             <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
                                 <div class="flex gap-3 pb-3">
                                     <h1 class="w-56 h-2 mt-4 rounded-lg">Related Client: </h1>

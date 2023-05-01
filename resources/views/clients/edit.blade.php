@@ -7,7 +7,7 @@
                 <div class="bg-white rounded-lg shadow">
                     <div class="flex">
                         <div class="flex-1 py-5 pl-5 overflow-hidden">
-                            <h1 class="inline text-2xl font-semibold leading-none">Create Client</h1>
+                            <h1 class="inline text-2xl font-semibold leading-none">Edit Client</h1>
                         </div>
                     </div>
                     <div class="px-5 pb-5">
