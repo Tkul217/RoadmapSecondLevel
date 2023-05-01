@@ -13,8 +13,7 @@ return new class extends Migration {
             $table->foreignId('project_id')->constrained();
             $table->string('title');
             $table->string('description');
-            $table->string('images')->nullable();
-            $table->integer('status');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
-            $table->integer('status');
+            $table->string('status');
             $table->string('title');
             $table->string('description');
             $table->timestamp('deadline');

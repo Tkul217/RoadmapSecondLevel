@@ -34,5 +34,9 @@ class DatabaseSeeder extends Seeder
         User::doesntHave('roles')
             ->get()
             ->map(fn($user) => $user->assignRole($roleUser));
+
+        Task::factory()
+            ->count(500)
+            ->create();
     }
 }
