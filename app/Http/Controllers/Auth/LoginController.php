@@ -18,9 +18,17 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->route('dashboard');
         }
 
         return back();
+    }
+
+    public function logout(){
+        Auth::logout();
+
+        session()->regenerate();
+
+        return redirect()->route('login');
     }
 }

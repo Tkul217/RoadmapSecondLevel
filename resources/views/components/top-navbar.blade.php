@@ -4,7 +4,7 @@
         <div class="flex items-stretch justify-between h-16">
 
             <div class="flex items-center md:hidden">
-                <div class="-mr-2 flex" x-data>
+                <div class="-mr-2 flex">
                     <!-- Mobile menu button -->
                     <button type="button" @click="$dispatch('togglesidebar')"
                             class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -52,26 +52,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
-                </div>
-
-
-                <div class="hidden lg:block">
-                    <!-- Search -->
-                    <form action="" class="app-search" method="GET">
-                        <div class="relative group ">
-                            <input type="text"
-                                   class="form-input rounded-md bg-gray-700 text-sm text-gray-300 pl-10 py-1.5 ml-5 border-transparent border-none outline-none focus:ring-0 focus:text-white transition-all duration-300 ease-in-out focus:w-60 w-48"
-                                   placeholder="Search..." autocomplete="off">
-                            <span
-                                class="absolute left-44 bottom-2 text-gray-400 transition-all duration-300 ease-in-out group-focus-within:left-8">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                    </span>
-                        </div>
-                    </form>
                 </div>
             </div>
             <div class="hidden md:flex items-stretch">
@@ -123,9 +103,12 @@
                             <a href="{{route('profile.projects')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                role="menuitem" tabindex="-1" id="user-menu-item-1">Projects</a>
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                               role="menuitem" tabindex="-1" id="user-menu-item-1">Sign
-                                out</a>
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                   role="menuitem" tabindex="-1" id="user-menu-item-1">Sign
+                                    out</button>
+                            </form>
                         </div>
                     </div>
 
@@ -162,15 +145,11 @@
          x-transition:enter-end="transform opacity-100 scale-100"
          x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="transform opacity-100 scale-100"
-         x-transition:leave-end="transform opacity-0 scale-95" @click.away="mobilemenue = false
-
-                ">
+         x-transition:leave-end="transform opacity-0 scale-95" @click.away="mobilemenue = false">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="{{route('dashboard')}}" class="@if(Route::is('dashboard')) bg-gray-900 @endif text-white block px-3 py-2 rounded-md text-base font-medium"
-               aria-current="page">Dashboard</a>
-
-            <a href="#"
-               class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+               aria-current="page">Dashboard
+            </a>
         </div>
 
         <div class="pt-4 pb-3 border-t border-gray-700">
@@ -204,9 +183,12 @@
                 <a href="{{route('profile.projects')}}"
                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Projects</a>
 
-                <a href="#"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign
-                    out</a>
+                <form action="{{route('logout')}}" method="post">
+                    @csrf
+                    <button type="submit"
+                       class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out
+                    </button>
+                </form>
             </div>
         </div>
     </div>

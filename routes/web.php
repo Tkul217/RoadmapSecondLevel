@@ -31,15 +31,17 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
 
+    Route::prefix('tasks')->name('tasks.')->group(function (){
+        Route::get('userTasks', [TaskController::class, 'userTasks'])->name('user-tasks');
+
+        Route::get('/activeTasks', [TaskController::class, 'activeTasks'])->name('active-tasks');
+
+        Route::get('/progressTasks', [TaskController::class, 'progressTasks'])->name('progress-tasks');
+
+        Route::get('/closedTasks', [TaskController::class, 'closedTasks'])->name('closed-tasks');
+    });
+
     Route::resource('tasks', TaskController::class);
-
-    Route::get('/userTasks', [TaskController::class, 'userTasks'])->name('user-tasks');
-
-    Route::get('/activeTasks', [TaskController::class, 'activeTasks'])->name('active-tasks');
-
-    Route::get('/progressTasks', [TaskController::class, 'progressTasks'])->name('progress-tasks');
-
-    Route::get('/closedTasks', [TaskController::class, 'closedTasks'])->name('closed-tasks');
 
     Route::prefix('profile')->name('profile.')->group(function () {
 
@@ -56,4 +58,6 @@ Route::middleware('auth')->group(function () {
 Route::get('login', [LoginController::class, 'login'])->name('login');
 
 Route::post('login', [LoginController::class, 'authentication'])->name('authentication');
+
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 

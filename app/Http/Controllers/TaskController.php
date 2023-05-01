@@ -70,6 +70,12 @@ class TaskController extends Controller
         ]);
     }
 
+    public function show(Task $task){
+        return view('tasks.show', [
+            'task' => $task
+        ]);
+    }
+
     public function create(){
         return view('tasks.create', $this->getData());
     }

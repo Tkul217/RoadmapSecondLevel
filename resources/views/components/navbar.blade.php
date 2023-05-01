@@ -1,5 +1,24 @@
 <!-- nav -->
-<nav class="px-4 pt-4 scroller overflow-y-scroll max-h-[calc(100vh-64px)]" x-data="{selected:''}">
+<nav class="px-4 pt-4 scroller overflow-y-scroll max-h-[calc(100vh-64px)]" x-data="{
+    selected: '',
+    init(){
+        if (@js(Route::is('clients.*'))){
+            this.selected = 'Clients';
+        }
+        else if (@js(Route::is('projects.*'))){
+            this.selected = 'Projects';
+        }
+        else if (@js(Route::is('tasks.*'))){
+            this.selected = 'Tasks';
+        }
+        else if (@js(Route::is('users.*'))){
+            this.selected = 'Users';
+        }
+        else {
+            return;
+        }
+    }
+}">
     <ul class="flex flex-col space-y-2">
 
         <!-- ITEM -->
@@ -12,7 +31,7 @@
                               d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                 </div>
-                <div>Dashboard </div>
+                <div>Dashboard</div>
             </a>
         </li>
 
@@ -23,7 +42,7 @@
 
         <!-- List ITEM -->
         <li class="text-sm text-gray-500 ">
-            <a href="#" @click.prevent="selected = (selected === 'User' ? '':'User')"
+            <a href="#" @click.prevent="selected = (selected === 'Users' ? '':'Users')"
                class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,7 +52,7 @@
                 </div>
                 <div>Users</div>
                 <div class="absolute right-1.5 transition-transform duration-300"
-                     :class="{ 'rotate-180': (selected === 'User') }">
+                     :class="{ 'rotate-180': (selected === 'Users') }">
                     <svg class=" h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M19 9l-7 7-7-7" />
@@ -43,18 +62,18 @@
 
 
             <div class="pl-4 pr-2 overflow-hidden transition-all transform translate duration-300 max-h-0 "
-                 :style="(selected === 'User') ? 'max-height: ' + $el.scrollHeight + 'px':''">
+                 :style="(selected === 'Users') ? 'max-height: ' + $el.scrollHeight + 'px':''">
                 <ul class="flex flex-col mt-2 pl-2 text-gray-500 border-l border-gray-700 space-y-1 text-xs">
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href=""
+                        <a href="{{route('users.index')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Users List </div>
                         </a>
                     </li>
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href="#"
+                        <a href="{{route('users.create')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Create User </div>
                         </a>
@@ -64,8 +83,8 @@
         </li>
 
         <li class="text-sm text-gray-500 ">
-            <a href="#" @click.prevent="selected = (selected === 'Client' ? '':'Client')"
-               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+            <a href="#" @click.prevent="selected = (selected === 'Clients' ? '':'Clients')"
+               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 @if(Route::is('clients.*')) bg-gray-700 text-white @endif">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -74,7 +93,7 @@
                 </div>
                 <div>Clients</div>
                 <div class="absolute right-1.5 transition-transform duration-300"
-                     :class="{ 'rotate-180': (selected === 'Client') }">
+                     :class="{ 'rotate-180': (selected === 'Clients') }">
                     <svg class=" h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M19 9l-7 7-7-7" />
@@ -84,7 +103,7 @@
 
 
             <div class="pl-4 pr-2 overflow-hidden transition-all transform translate duration-300 max-h-0 "
-                 :style="(selected === 'Client') ? 'max-height: ' + $el.scrollHeight + 'px':''">
+                 :style="(selected === 'Clients') ? 'max-height: ' + $el.scrollHeight + 'px':''">
                 <ul class="flex flex-col mt-2 pl-2 text-gray-500 border-l border-gray-700 space-y-1 text-xs">
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
@@ -107,7 +126,7 @@
         <!-- List ITEM -->
         <li class="text-sm text-gray-500 ">
             <a href="#" @click.prevent="selected = (selected === 'Projects' ? '':'Projects')"
-               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 @if(Route::is('projects.*')) bg-gray-700 text-white @endif">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -150,7 +169,7 @@
         <!-- List ITEM -->
         <li class="text-sm text-gray-500 ">
             <a href="#" @click.prevent="selected = (selected === 'Tasks' ? '':'Tasks')"
-               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
+               class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 @if(Route::is('tasks.*')) bg-gray-700 text-white @endif">
                 <div class="pr-2">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -180,25 +199,25 @@
                     </li>
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href="{{route('user-tasks')}}"
+                        <a href="{{route('tasks.user-tasks')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> My tasks </div>
                         </a>
                     </li>
                     <li class="text-sm text-gray-500 ">
-                        <a href="{{route('active-tasks')}}"
+                        <a href="{{route('tasks.active-tasks')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Active Task </div>
                         </a>
                     </li>
                     <li class="text-sm text-gray-500 ">
-                        <a href="{{route('progress-tasks')}}"
+                        <a href="{{route('tasks.progress-tasks')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> In Progress </div>
                         </a>
                     </li>
                     <li class="text-sm text-gray-500 ">
-                        <a href="{{route('closed-tasks')}}"
+                        <a href="{{route('tasks.closed-tasks')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> Closed Task </div>
                         </a>
