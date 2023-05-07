@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\TaskMediaService;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
@@ -10,6 +11,13 @@ use App\Http\Requests\TaskRequest;
 
 class TaskController extends Controller
 {
+    protected $taskService;
+
+    public function __construct(TaskMediaService $taskMediaService)
+    {
+        $this->taskService = $taskMediaService;
+    }
+
     public function index()
     {
         $tasks = Task::query()

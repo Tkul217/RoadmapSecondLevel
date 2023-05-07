@@ -14,11 +14,12 @@ class TaskRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'status' => ['required', 'string'],
+            'files' => ['nullable', 'file']
         ];
     }
 
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->hasRole('admin');
     }
 }

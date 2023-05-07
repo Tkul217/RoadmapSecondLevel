@@ -11,6 +11,11 @@ class TaskMediaService implements TaskMediaInterface
         // TODO: Implement getMedia() method.
     }
 
+    public function storeMedia()
+    {
+        // TODO: Implement storeMedia() method.
+    }
+
     public function editMedia()
     {
         // TODO: Implement editMedia() method.
