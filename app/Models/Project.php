@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Project extends Model
+class Project extends Model implements HasMedia
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, InteractsWithMedia;
 
     const OPEN = 'open';
     const FINISHED = 'finished';
@@ -24,6 +26,7 @@ class Project extends Model
         'status',
         'title',
         'description',
+        'image',
         'deadline'
     ];
 
@@ -60,5 +63,10 @@ class Project extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('project-images');
     }
 }

@@ -20,10 +20,6 @@
                                 <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$user->email}}</h1>
                             </div>
                             <div class="flex gap-3 pb-3">
-                                <h1 class="w-56 h-2 mt-4 rounded-lg">Email verified: </h1>
-                                <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$user->email_verified_at}}</h1>
-                            </div>
-                            <div class="flex gap-3 pb-3">
                                 <h1 class="w-56 h-2 mt-4 rounded-lg">Created at: </h1>
                                 <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$user->created_at}}</h1>
                             </div>

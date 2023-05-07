@@ -187,38 +187,20 @@
                     <li class="text-sm text-gray-500 ">
                         <a href="{{route('tasks.index')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div>List </div>
+                            <div>Tasks List</div>
                         </a>
                     </li>
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
                         <a href="{{route('tasks.user-tasks')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> My tasks </div>
-                        </a>
-                    </li>
-                    <li class="text-sm text-gray-500 ">
-                        <a href="{{route('tasks.active-tasks')}}"
-                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> Active Task </div>
-                        </a>
-                    </li>
-                    <li class="text-sm text-gray-500 ">
-                        <a href="{{route('tasks.progress-tasks')}}"
-                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> In Progress </div>
-                        </a>
-                    </li>
-                    <li class="text-sm text-gray-500 ">
-                        <a href="{{route('tasks.closed-tasks')}}"
-                           class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> Closed Task </div>
+                            <div> My tasks</div>
                         </a>
                     </li>
                     <li class="text-sm text-gray-500 ">
                         <a href="{{route('tasks.create')}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
-                            <div> Create Task </div>
+                            <div> Create Task</div>
                         </a>
                     </li>
                 </ul>

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('status');
             $table->string('title');
             $table->string('description');
+            $table->string('image')->nullable();
             $table->timestamp('deadline');
             $table->timestamps();
             $table->softDeletes();

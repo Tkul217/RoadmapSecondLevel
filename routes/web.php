@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Profile\ProjectController as ProfileProject;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\TaskController;
 
@@ -31,33 +29,17 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->only(['index', 'show']);
 
-    Route::prefix('tasks')->name('tasks.')->group(function (){
-        Route::get('userTasks', [TaskController::class, 'userTasks'])->name('user-tasks');
-
-        Route::get('/activeTasks', [TaskController::class, 'activeTasks'])->name('active-tasks');
-
-        Route::get('/progressTasks', [TaskController::class, 'progressTasks'])->name('progress-tasks');
-
-        Route::get('/closedTasks', [TaskController::class, 'closedTasks'])->name('closed-tasks');
-    });
+    Route::get('tasks/userTasks', [TaskController::class, 'userTasks'])->name('tasks.user-tasks');
 
     Route::resource('tasks', TaskController::class);
 
     Route::prefix('profile')->name('profile.')->group(function () {
-
-       Route::get('projects', ProfileProject::class)->name('projects');
-
        Route::get('/', ProfileController::class)->name('user');
+
+       Route::get('projects', function () {
+           dd(auth()->user()->projects);
+       })->name('projects');
     });
 });
 
-
-/*
- * Login and Register Routes
- */
-Route::get('login', [LoginController::class, 'login'])->name('login');
-
-Route::post('login', [LoginController::class, 'authentication'])->name('authentication');
-
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
+require_once __DIR__ . '/auth.php';

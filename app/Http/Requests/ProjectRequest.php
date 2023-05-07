@@ -14,12 +14,13 @@ class ProjectRequest extends FormRequest
             'status' => ['required', 'string'],
             'title' => ['required'],
             'description' => ['required'],
+            'image' => ['nullable', 'image', 'mimes:jpeg, png, jpg'],
             'deadline' => ['required', 'date'],
         ];
     }
 
     public function authorize(): bool
     {
-        return auth()->user()->hasRole('admin');
+        return auth()->user()?->hasRole('admin');
     }
 }

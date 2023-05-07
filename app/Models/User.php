@@ -37,15 +37,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function createdAt(): Attribute
     {
         return Attribute::make(
@@ -54,13 +45,6 @@ class User extends Authenticatable
     }
 
     public function updatedAt(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->format('Y-m-d')
-        );
-    }
-
-    public function emailVerifiedAt(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->format('Y-m-d')

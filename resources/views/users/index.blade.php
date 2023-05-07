@@ -8,7 +8,6 @@
                     <th scope="col" class="px-6 py-4">#</th>
                     <th scope="col" class="px-6 py-4">Name</th>
                     <th scope="col" class="px-6 py-4">Email</th>
-                    <th scope="col" class="px-6 py-4">Email Verified</th>
                     <th scope="col" class="px-6 py-4">Created at</th>
                     <th scope="col" class="px-6 py-4">Actions</th>
                 </tr>
@@ -20,7 +19,6 @@
                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{$user->id}}</td>
                         <td class="whitespace-nowrap px-6 py-4">{{$user->name}}</td>
                         <td class="whitespace-nowrap px-6 py-4">{{$user->email}}</td>
-                        <td class="whitespace-nowrap px-6 py-4">{{$user->email_verified_at}}</td>
                         <td class="whitespace-nowrap px-6 py-4">{{$user->created_at}}</td>
                         <td class="whitespace-nowrap px-6 py-4 flex justify-between">
                             <a href="{{route('users.show', $user)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Show</a>
