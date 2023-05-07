@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ProjectMediaService;
 use App\Models\Client;
 use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
 use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+    protected $media;
+
+    public function __construct(ProjectMediaService $projectMediaService)
+    {
+        $this->media = $projectMediaService;
+    }
+
     public function index()
     {
         $projects = Project::paginate();
@@ -32,7 +41,11 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-        Project::create($data);
+        $project = Project::create($data);
+
+        if ($request->hasFile('image')){
+            $this->media->storeMedia($project, $data['image']);
+        }
 
         return redirect()->route('projects.index');
     }
@@ -44,7 +57,8 @@ class ProjectController extends Controller
         }
 
         return view('projects.show', [
-            'project' => $project
+            'project' => $project,
+            'image' => $this->media->getMedia($project)
         ]);
     }
 
@@ -57,6 +71,7 @@ class ProjectController extends Controller
 
         return view('projects.edit', [
             'project' => $project,
+            'image' => $this->media->getMedia($project),
             'users' => $data['users'],
             'clients' => $data['clients'],
             'statuses' => $data['statuses']
@@ -73,6 +88,10 @@ class ProjectController extends Controller
 
         $project->update($data);
 
+        if ($request->hasFile('image')){
+            $this->media->editMedia($project, $data['image']);
+        }
+
         return redirect()->route('projects.show', $project);
     }
 
@@ -82,13 +101,22 @@ class ProjectController extends Controller
             abort(404);
         }
 
+        DB::beginTransaction();
+
         try {
+            $this->media->deleteMedia($project);
+
             $project->delete();
-        } catch (QueryException $exception) {
-            throw new \Exception($exception->getMessage());
+
+            DB::commit();
+
         } catch (\Exception $exception) {
-            abort(500);
+
+            DB::rollBack();
+
+            throw new \Exception($exception->getMessage());
         }
+
         return redirect()->route('projects.index');
     }
 

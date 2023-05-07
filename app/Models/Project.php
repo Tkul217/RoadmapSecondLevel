@@ -26,6 +26,7 @@ class Project extends Model implements HasMedia
         'status',
         'title',
         'description',
+        'image',
         'deadline'
     ];
 
@@ -62,5 +63,10 @@ class Project extends Model implements HasMedia
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('project-images');
     }
 }

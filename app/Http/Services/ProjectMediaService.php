@@ -9,16 +9,23 @@ class ProjectMediaService implements ProjectMediaInterface
 {
     public function getMedia(Project $project)
     {
-        // TODO: Implement getMedia() method.
+        return $project->getFirstMedia('project-images');
     }
 
-    public function editMedia(Project $project)
+    public function storeMedia(Project $project, $image): void
     {
-        // TODO: Implement editMedia() method.
+        $project->addMedia($image)->toMediaCollection('project-images');
     }
 
-    public function deleteMedia(Project $project)
+    public function editMedia(Project $project, $image): void
     {
-        // TODO: Implement deleteMedia() method.
+        $project->clearMediaCollection('project-images');
+
+        $project->addMedia($image)->toMediaCollection('project-images');
+    }
+
+    public function deleteMedia(Project $project): void
+    {
+        $project->clearMediaCollection('project-images');
     }
 }

@@ -1,7 +1,7 @@
 <x-main :title="__('Update Project')">
     <div class="flex h-screen bg-gray-100">
         <div class="mx-auto pt-12">
-            <form action="{{route('projects.update', $project)}}" method="post">
+            <form action="{{route('projects.update', $project)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="bg-white rounded-lg shadow">
@@ -34,6 +34,7 @@
                                 <option @if($project->status === $status) selected @endif value="{{$status}}">{{$name}}</option>
                             @endforeach
                         </select>
+                        <input type="file" name="image" class="mt-5">
                     </div>
                     <div class="px-5 pb-5">
                         <button class="bg-indigo-100 text-md rounded font-semibold text-gray-700 px-8 py-3 hover:scale-110 transition-all ease-in-out" type="submit">Update</button>
