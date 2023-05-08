@@ -7,7 +7,7 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
 use App\Models\User;
-use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
@@ -19,9 +19,13 @@ class ProjectController extends Controller
         $this->media = $projectMediaService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::paginate();
+        $projects = Project::query()
+            ->when($request->has('user_id'), function ($query) use ($request){
+                return $query->where('user_id', $request->get('user_id'));
+            })
+            ->paginate();
         return view('projects.index', [
             'projects' => $projects
         ]);

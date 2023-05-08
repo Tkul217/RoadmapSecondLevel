@@ -14,7 +14,8 @@ class TaskRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'status' => ['required', 'string'],
-            'files' => ['nullable', 'file']
+            'files' => ['nullable'],
+            'files.*' => ['file', 'max:2048']
         ];
     }
 

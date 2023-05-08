@@ -26,7 +26,6 @@ class Project extends Model implements HasMedia
         'status',
         'title',
         'description',
-        'image',
         'deadline'
     ];
 

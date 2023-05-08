@@ -21,7 +21,6 @@ class Task extends Model implements HasMedia
         'title',
         'description',
         'status',
-        'files'
     ];
 
     const ACTIVE = 'active';

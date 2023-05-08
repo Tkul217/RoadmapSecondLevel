@@ -31,11 +31,7 @@
                     <p class="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>
                     <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">
                         @isset($image)
-                            <div class="w-full block w-full h-64">
-                                <div class="relative bg-gray-300 rounded-lg dark:bg-gray-600 hover:scale-110 transition-all ease-in-out cursor-pointer">
-                                    {{$image}}
-                                </div>
-                            </div>
+                            <img src="{{$image->getUrl()}}" alt="Project Image">
                         @endisset
 
                         <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out">

@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\TaskRequest;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -18,9 +19,12 @@ class TaskController extends Controller
         $this->taskService = $taskMediaService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $tasks = Task::query()
+            ->when($request->has('user_id'), function ($q) use ($request) {
+                return $q->where('user_id', $request->get('user_id'));
+            })
             ->with(['project', 'user'])
             ->paginate();
 
@@ -30,61 +34,14 @@ class TaskController extends Controller
         ]);
     }
 
-    public function userTasks(){
-        $tasks = Task::query()
-            ->with(['project', 'user'])
-            ->where('user_id', auth()->id())
-            ->paginate();
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'title' => __('My tasks')
-        ]);
-    }
-
-    public function activeTasks(){
-        $tasks = Task::query()
-            ->with(['project', 'user'])
-            ->where('status', Task::ACTIVE)
-            ->paginate();
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'title' => __('Active tasks')
-        ]);
-    }
-
-    public function progressTasks(){
-        $tasks = Task::query()
-            ->with(['project', 'user'])
-            ->where('status', Task::IN_PROGRESS)
-            ->paginate();
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'title' => __('Progress tasks')
-        ]);
-    }
-
-    public function closedTasks(){
-        $tasks = Task::query()
-            ->with(['project', 'user'])
-            ->where('status', Task::CLOSED)
-            ->paginate();
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'title' => __('Closed tasks')
-        ]);
-    }
-
     public function show(Task $task){
         if (!$task){
             abort(404);
         }
 
         return view('tasks.show', [
-            'task' => $task
+            'task' => $task,
+            'files' => $this->taskService->getMedia($task)
         ]);
     }
 
@@ -95,7 +52,9 @@ class TaskController extends Controller
     public function store(TaskRequest $request){
         $data = $request->validated();
 
-        Task::create($data);
+        $task = Task::create($data);
+
+        $this->taskService->storeMedia($task, $data['files']);
 
         return redirect()->route('tasks.index');
     }
@@ -115,7 +74,11 @@ class TaskController extends Controller
             abort(404);
         }
 
-        $task->update($request->validated());
+        $data = $request->validated();
+
+        $task->update($data);
+
+        $this->taskService->editMedia($task, $data['files']);
 
         return redirect()->route('tasks.show', $task);
     }
@@ -126,6 +89,8 @@ class TaskController extends Controller
         }
 
         try {
+            $this->taskService->deleteMedia($task);
+
             $task->delete();
         } catch (QueryException $exception){
             throw new \Exception('You can not delete this task, because '.$exception->getMessage());

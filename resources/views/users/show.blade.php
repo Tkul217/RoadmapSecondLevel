@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <a href="">
+                        <a href="{{route('projects.index', ['user_id' => $user->id])}}">
                             <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
                                 <div class="flex gap-3 pb-3">
                                     <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-bold h-full">Show projects</h1>
@@ -33,7 +33,7 @@
                             </div>
                         </a>
 
-                        <a href="">
+                        <a href="{{route('tasks.index', ['user_id' => $user->id])}}">
                             <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
                                 <div class="flex gap-3 pb-3">
                                     <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-bold h-full">Show tasks</h1>
