@@ -23,4 +23,18 @@ class ProjectRequest extends FormRequest
     {
         return auth()->user()?->hasRole('admin');
     }
+
+    public function messages()
+    {
+        return [
+            'user_id' => 'User is required',
+            'client_id' => 'Client is required',
+            'status' => 'Status is required',
+            'title' => 'Title is required',
+            'description' => 'Description is required',
+            'image' => 'Send image again, please',
+            'image.image' => 'File must be image',
+            'image.mimes' => 'Image format must be jpeg, jpg or png'
+        ];
+    }
 }

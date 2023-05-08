@@ -19,4 +19,14 @@ class ClientRequest extends FormRequest
     {
         return auth()->user()->hasRole('admin');
     }
+
+    public function messages()
+    {
+        return [
+            'company' => 'Company is required',
+            'VAT' => 'VAT is required',
+            'VAT.integer' => 'VAT must me integer',
+            'address' => 'Address is required',
+        ];
+    }
 }

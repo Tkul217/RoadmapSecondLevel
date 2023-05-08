@@ -23,4 +23,17 @@ class TaskRequest extends FormRequest
     {
         return auth()->user()?->hasRole('admin');
     }
+
+    public function messages()
+    {
+        return [
+            'user_id' => 'User is required',
+            'project_id' => 'Project is required',
+            'title' => 'Tit;e is required',
+            'description' => 'Description is required',
+            'status' => 'Status is required',
+            'files' => 'Something is wrong..Please send files again',
+            'files.*.max' => 'Max filesize is 2048mb'
+        ];
+    }
 }
