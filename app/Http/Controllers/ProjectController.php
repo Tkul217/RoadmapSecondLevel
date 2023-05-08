@@ -17,6 +17,7 @@ class ProjectController extends Controller
     public function __construct(ProjectMediaService $projectMediaService)
     {
         $this->media = $projectMediaService;
+        $this->authorizeResource(Project::class, 'projects');
     }
 
     public function index(Request $request)
