@@ -29,7 +29,7 @@ class TaskRequest extends FormRequest
         return [
             'user_id' => 'User is required',
             'project_id' => 'Project is required',
-            'title' => 'Tit;e is required',
+            'title' => 'Title is required',
             'description' => 'Description is required',
             'status' => 'Status is required',
             'files' => 'Something is wrong..Please send files again',
