@@ -10,19 +10,9 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
-    {
-        return true;
-    }
-
-    public function view(User $user, Project $project): bool
-    {
-        return true;
-    }
-
     public function create(User $user): bool
     {
-        return auth()->user()->hasRole('admin');
+        return auth()->user()?->hasRole('admin');
     }
 
     public function update(User $user, Project $project): bool

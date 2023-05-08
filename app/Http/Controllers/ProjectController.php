@@ -17,7 +17,6 @@ class ProjectController extends Controller
     public function __construct(ProjectMediaService $projectMediaService)
     {
         $this->media = $projectMediaService;
-        $this->authorizeResource(Project::class, 'projects');
     }
 
     public function index(Request $request)
@@ -34,7 +33,10 @@ class ProjectController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Project::class);
+
         $data = $this->preparingData();
+
         return view('projects.create', [
             'users' => $data['users'],
             'clients' => $data['clients'],
@@ -44,6 +46,8 @@ class ProjectController extends Controller
 
     public function store(ProjectRequest $request)
     {
+        $this->authorize('create', Project::class);
+
         $data = $request->validated();
 
         $project = Project::create($data);
@@ -69,7 +73,10 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         $data = $this->preparingData();
+
         if (!$project || !$data){
             abort(404);
         }
@@ -85,6 +92,8 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         if (!$project){
             abort(404);
         }
@@ -102,6 +111,8 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
+
         if (!$project){
             abort(404);
         }
