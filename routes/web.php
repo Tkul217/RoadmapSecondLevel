@@ -6,6 +6,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,8 @@ use App\Http\Controllers\TaskController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('dashboard');
+
+    Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::resource('clients', ClientController::class)->except('show');
 
@@ -37,6 +38,11 @@ Route::middleware('auth')->group(function () {
        Route::get('projects', function () {
            dd(auth()->user()->projects);
        })->name('projects');
+    });
+
+    Route::prefix('notifications')->name('notifications.')->group(function (){
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::post('/readNotifications', [NotificationController::class, 'readNotifications'])->name('read-notifications');
     });
 });
 

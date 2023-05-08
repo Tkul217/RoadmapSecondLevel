@@ -29,10 +29,10 @@
                         </td>
                         <td class="whitespace-nowrap px-6 py-4">
                             <div class="font-semibold">
-                                {{$task->project->title}}
+                                {{$task->project->title ?? null}}
                             </div>
                             <div class="text-gray-700">
-                                {{$task->project->id}}
+                                {{$task->project->id ?? null}}
                             </div>
                         </td>
                         <td class="whitespace-nowrap px-6 py-4">{{$task->title}}</td>
