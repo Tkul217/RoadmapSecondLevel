@@ -1,55 +1,84 @@
-<x-main :title="$title">
-    <div class="flex h-screen bg-gray-100">
-        <div class="mx-auto pt-12">
-{{--            <section class="bg-gray-200 animate-pulse rounded-lg">--}}
-{{--                <div class="container px-6 py-10 mx-auto">--}}
-{{--                    <h1 class="w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700"></h1>--}}
+<x-main :title="__('Tasks list')">
+    <div class="flex flex-col px-5">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
 
-{{--                    <p class="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>--}}
-{{--                    <p class="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>--}}
+            <table class="table-auto min-w-full text-left text-sm font-light">
+                <thead class="border-b font-medium dark:border-neutral-500">
+                <tr>
+                    <th scope="col" class="px-6 py-4">#</th>
+                    <th scope="col" class="px-6 py-4">Related User</th>
+                    <th scope="col" class="px-6 py-4">Related Project</th>
+                    <th scope="col" class="px-6 py-4">Title</th>
+                    <th scope="col" class="px-6 py-4 w-32">Description</th>
+                    <th scope="col" class="px-6 py-4">Status</th>
+                    <th scope="col" class="px-6 py-4">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($tasks as $task)
+                    <tr
+                        class="border-b transition duration-300 ease-in-out hover:bg-gray-200">
+                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{$task->id}}</td>
+                        <td class="whitespace-nowrap px-6 py-4">
+                            <div class="font-semibold">
+                                {{$task->user->name}}
+                            </div>
+                            <div class="text-gray-700">
+                                {{$task->user->id}}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-4">
+                            <div class="font-semibold">
+                                {{$task->project->title}}
+                            </div>
+                            <div class="text-gray-700">
+                                {{$task->project->id}}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-4">{{$task->title}}</td>
+                        <td class="whitespace-nowrap px-6 py-4 w-32 truncate max-w-xs">{{$task->description}}</td>
+                        <td class="whitespace-nowrap px-6 py-4">
+                            @if($task->status === \App\Models\Task::ACTIVE)
+                                <span class="inline-flex items-center m-2 px-3 py-1 bg-green-200 hover:bg-green-300 rounded-full text-sm font-semibold text-green-600">
+                                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                                    <span class="ml-1">
+                                        {{$task->status}}
+                                    </span>
+                                </span>
+                            @elseif($task->status === \App\Models\Task::IN_PROGRESS)
+                                <span class="inline-flex items-center m-2 px-3 py-1 bg-blue-200 hover:bg-blue-300 rounded-full text-sm font-semibold text-blue-600">
+                                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                                    <span class="ml-1">
+                                        {{$task->status}}
+                                    </span>
+                                </span>
+                            @elseif($task->status === \App\Models\Task::CLOSED)
+                                <span class="inline-flex items-center m-2 px-3 py-1 bg-red-200 hover:bg-red-300 rounded-full text-sm font-semibold text-red-600">
+                                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                                    <span class="ml-1">
+                                        {{$task->status}}
+                                    </span>
+                                </span>
+                            @endif
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-4 flex justify-between">
+                            <a href="{{route('tasks.show', $task)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Show</a>
+                            <a href="{{route('tasks.edit', $task)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Edit</a>
+                            <form action="{{route('tasks.destroy', $task)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-400 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
 
-{{--                    <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">--}}
-{{--                        <div class="w-full">--}}
-{{--                            <div class="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600 hover:scale-110 transition-all ease-in-out cursor-pointer">--}}
-{{--                                <h1 class="font-bold text-white p-10 text-2xl">IMAGE</h1>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
 
-{{--                        <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">--}}
-{{--                            <div class="flex gap-3">--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg">Title: </h1>--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold">{{$project->title}}</h1>--}}
-{{--                            </div>--}}
-{{--                            <div class="flex gap-3">--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg">Description: </h1>--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->description}}</h1>--}}
-{{--                            </div>--}}
-{{--                            <div class="flex gap-3 pb-3">--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg">Status: </h1>--}}
-{{--                                <h1 class="w-56 h-2 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->status}}</h1>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <a href="">--}}
-{{--                            <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">--}}
-{{--                                <div class="flex gap-3 pb-3">--}}
-{{--                                    <h1 class="w-56 h-2 mt-4 rounded-lg">Related User: </h1>--}}
-{{--                                    <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->user->name}}</h1>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-
-{{--                        <a href="">--}}
-{{--                            <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">--}}
-{{--                                <div class="flex gap-3 pb-3">--}}
-{{--                                    <h1 class="w-56 h-2 mt-4 rounded-lg">Related Client: </h1>--}}
-{{--                                    <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->client->company}}</h1>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </section>--}}
+            <div class="py-5">
+                {{$tasks->links()}}
+            </div>
         </div>
     </div>
 </x-main>
