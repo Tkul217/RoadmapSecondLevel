@@ -1,7 +1,8 @@
 <x-main :title="__('Create Task')">
     <div class="flex h-screen bg-gray-100">
         <div class="mx-auto pt-12">
-            <form action="{{route('tasks.store')}}" method="post">
+            {{$errors}}
+            <form action="{{route('tasks.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-white rounded-lg shadow">
                     <div class="flex">
@@ -30,6 +31,7 @@
                                 <option value="{{$status}}">{{$name}}</option>
                             @endforeach
                         </select>
+                        <input type="file" multiple name="files[]" class="mt-5">
                     </div>
                     <div class="px-5 pb-5">
                         <button class="bg-indigo-100 text-md rounded font-semibold text-gray-700 px-8 py-3 hover:scale-110 transition-all ease-in-out" type="submit">Create</button>
