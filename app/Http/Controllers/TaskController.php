@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\TaskRequest;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -18,27 +19,18 @@ class TaskController extends Controller
         $this->taskService = $taskMediaService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $tasks = Task::query()
+            ->when($request->has('user_id'), function ($q) use ($request) {
+                return $q->where('user_id', $request->get('user_id'));
+            })
             ->with(['project', 'user'])
             ->paginate();
 
         return view('tasks.index', [
             'tasks' => $tasks,
             'title' => __('List tasks')
-        ]);
-    }
-
-    public function userTasks(){
-        $tasks = Task::query()
-            ->with(['project', 'user'])
-            ->where('user_id', auth()->id())
-            ->paginate();
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'title' => __('My tasks')
         ]);
     }
 

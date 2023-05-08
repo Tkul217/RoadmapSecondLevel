@@ -192,7 +192,7 @@
                     </li>
                     <!-- Item -->
                     <li class="text-sm text-gray-500 ">
-                        <a href="{{route('tasks.user-tasks')}}"
+                        <a href="{{route('tasks.index', ['user_id' => auth()->user()->id])}}"
                            class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700">
                             <div> My tasks</div>
                         </a>

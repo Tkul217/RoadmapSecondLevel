@@ -1,7 +1,6 @@
 <x-main :title="__('Create Task')">
     <div class="flex h-screen bg-gray-100">
         <div class="mx-auto pt-12">
-            {{$errors}}
             <form action="{{route('tasks.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-white rounded-lg shadow">

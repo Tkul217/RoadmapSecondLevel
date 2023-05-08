@@ -29,8 +29,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->only(['index', 'show']);
 
-    Route::get('tasks/userTasks', [TaskController::class, 'userTasks'])->name('tasks.user-tasks');
-
     Route::resource('tasks', TaskController::class);
 
     Route::prefix('profile')->name('profile.')->group(function () {
