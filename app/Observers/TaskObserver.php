@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Task;
 use App\Models\User;
 use App\Notifications\TaskNotification;
+use Illuminate\Support\Facades\Log;
 
 class TaskObserver
 {
@@ -15,6 +16,8 @@ class TaskObserver
     {
         User::find($task->user_id)
             ->notify(new TaskNotification('Created new Task with your where id: ' . $task->id . ' In Project id: ' . $task->project_id));
+
+        Log::info('Notification created Task send successfully');
     }
 
     /**
@@ -24,6 +27,8 @@ class TaskObserver
     {
         User::find($task->id)
             ->notify(new TaskNotification('Updated Task with your where id: ' . $task->id . ' In Project id: ' . $task->project_id));
+
+        Log::info('Notification updated Task send successfully');
     }
 
     /**
@@ -33,6 +38,8 @@ class TaskObserver
     {
         User::find($task->user_id)
             ->notify(new TaskNotification('Deleted Task with your where id: ' . $task->id . ' In Project id: ' . $task->project_id));
+
+        Log::info('Notification deleted Task send successfully');
     }
 
     /**
@@ -42,6 +49,8 @@ class TaskObserver
     {
         User::find($task->user_id)
             ->notify(new TaskNotification('Restored Task with your where id: ' . $task->id . ' In Project id: ' . $task->project_id));
+
+        Log::info('Notification restored Task send successfully');
     }
 
     /**
@@ -51,5 +60,7 @@ class TaskObserver
     {
         User::find($task->user_id)
             ->notify(new TaskNotification('Force Deleted Task with your where id: ' . $task->id . ' In Project id: ' . $task->project_id));
+
+        Log::info('Notification force deleted Task send successfully');
     }
 }

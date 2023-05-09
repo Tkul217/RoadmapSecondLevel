@@ -9,6 +9,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
@@ -62,6 +63,9 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         if (!$project){
+
+            Log::error('Project not found');
+
             abort(404);
         }
 
@@ -78,6 +82,9 @@ class ProjectController extends Controller
         $data = $this->preparingData();
 
         if (!$project || !$data){
+
+            Log::error('Project or Users, Clients and statuses for Project not found');
+
             abort(404);
         }
 
@@ -95,6 +102,9 @@ class ProjectController extends Controller
         $this->authorize('update', $project);
 
         if (!$project){
+
+            Log::error('Project now found');
+
             abort(404);
         }
 
@@ -114,6 +124,7 @@ class ProjectController extends Controller
         $this->authorize('delete', $project);
 
         if (!$project){
+            Log::error('Project not found');
             abort(404);
         }
 
@@ -129,6 +140,8 @@ class ProjectController extends Controller
         } catch (\Exception $exception) {
 
             DB::rollBack();
+
+            Log::error($exception->getMessage());
 
             throw new \Exception($exception->getMessage());
         }

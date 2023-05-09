@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Project;
 use App\Models\User;
 use App\Notifications\ProjectNotification;
+use Illuminate\Support\Facades\Log;
 
 class ProjectObserver
 {
@@ -15,6 +16,8 @@ class ProjectObserver
     {
         User::find($project->user_id)
             ->notify(new ProjectNotification('Created new Project with you where id: ' . $project->id));
+
+        Log::info('Notification created Project send successfully');
     }
 
     /**
@@ -24,6 +27,8 @@ class ProjectObserver
     {
         User::find($project->user_id)
             ->notify(new ProjectNotification('Updated Project with you where id: ' . $project->id));
+
+        Log::info('Notification updated Project send successfully');
     }
 
     /**
@@ -33,6 +38,8 @@ class ProjectObserver
     {
         User::find($project->user_id)
             ->notify(new ProjectNotification('Deleted Project with you where id: ' . $project->id));
+
+        Log::info('Notification deleted Project send successfully');
     }
 
     /**
@@ -42,6 +49,8 @@ class ProjectObserver
     {
         User::find($project->user_id)
             ->notify(new ProjectNotification('Restored Project with you where id: ' . $project->id));
+        Log::info('Notification restored Project send successfully');
+
     }
 
     /**
@@ -51,5 +60,7 @@ class ProjectObserver
     {
         User::find($project->id)
             ->notify(new ProjectNotification('Force Deleted Project with you where id: ' . $project->id));
+
+        Log::info('Notification force deleted Project send successfully');
     }
 }
