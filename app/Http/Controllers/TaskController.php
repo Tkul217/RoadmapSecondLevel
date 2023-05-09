@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -36,6 +37,9 @@ class TaskController extends Controller
 
     public function show(Task $task){
         if (!$task){
+
+            Log::error('Task not found');
+
             abort(404);
         }
 
@@ -54,13 +58,18 @@ class TaskController extends Controller
 
         $task = Task::create($data);
 
-        $this->taskService->storeMedia($task, $data['files']);
+        if ($request->hasFile('files')){
+            $this->taskService->storeMedia($task, $data['files']);
+        }
 
         return redirect()->route('tasks.index');
     }
 
     public function edit(Task $task){
         if (!$task){
+
+            Log::error('Task not found');
+
             abort(404);
         }
 
@@ -71,6 +80,9 @@ class TaskController extends Controller
 
     public function update(Task $task, TaskRequest $request){
         if (!$task){
+
+            Log::error('Task not found');
+
             abort(404);
         }
 
@@ -78,7 +90,9 @@ class TaskController extends Controller
 
         $task->update($data);
 
-        $this->taskService->editMedia($task, $data['files']);
+        if ($request->hasFile('files')){
+            $this->taskService->editMedia($task, $data['files']);
+        }
 
         return redirect()->route('tasks.show', $task);
     }
@@ -86,6 +100,7 @@ class TaskController extends Controller
     public function destroy(Task $task){
         if (!$task){
             abort(404);
+            Log::error('Task not found');
         }
 
         try {
@@ -93,6 +108,9 @@ class TaskController extends Controller
 
             $task->delete();
         } catch (QueryException $exception){
+
+            Log::error($exception->getMessage());
+
             throw new \Exception('You can not delete this task, because '.$exception->getMessage());
         }
 
