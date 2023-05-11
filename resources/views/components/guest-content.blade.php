@@ -11,7 +11,7 @@
             @csrf
             <div class="grid grid-cols-1 space-y-2">
                 <label class="text-sm font-bold text-gray-500 tracking-wide">Email</label>
-                <input class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="email" name="email" placeholder="example@example.com">
+                <input value="{{old('email')}}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="email" name="email" placeholder="example@example.com">
             </div>
             <div class="grid grid-cols-1 space-y-2">
                 <label class="text-sm font-bold text-gray-500 tracking-wide">Password</label>
