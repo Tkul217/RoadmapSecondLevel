@@ -26,6 +26,9 @@ class ProjectController extends Controller
             ->when($request->has('user_id'), function ($query) use ($request){
                 return $query->where('user_id', $request->get('user_id'));
             })
+            ->when($request->has('client_id'), function ($query) use ($request) {
+                return $query->where('client_id', $request->get('client_id'));
+            })
             ->paginate();
         return view('projects.index', [
             'projects' => $projects
