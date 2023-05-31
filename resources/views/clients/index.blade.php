@@ -23,6 +23,7 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{$client->address}}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{$client->created_at}}</td>
                                     <td class="whitespace-nowrap px-6 py-4 flex justify-around gap-5">
+                                        <a href="{{route('clients.show', $client)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Show</a>
                                         <a href="{{route('clients.edit', $client)}}" class="bg-gray-200 text-md rounded font-semibold text-gray-700 p-1.5 hover:scale-110 transition-all ease-in-out">Edit</a>
                                         <form action="{{route('clients.destroy', $client)}}" method="post">
                                             @csrf

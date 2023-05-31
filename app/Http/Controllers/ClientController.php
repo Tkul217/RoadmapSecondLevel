@@ -30,6 +30,12 @@ class ClientController extends Controller
         return redirect()->route('clients.index');
     }
 
+    public function show(Client $client) {
+        return view('clients.show', [
+            'client' => $client
+        ]);
+    }
+
     public function edit(Client $client)
     {
         if (!$client){

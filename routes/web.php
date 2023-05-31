@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', DashboardController::class)->name('dashboard');
 
-    Route::resource('clients', ClientController::class)->except('show');
+    Route::resource('clients', ClientController::class);
 
     Route::resource('projects', ProjectController::class);
 
