@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
     public function __invoke(){
-        dd(Auth::user()->projects);
+        return redirect()->route('projects.index', ['user_id' => Auth::id()]);
     }
 }

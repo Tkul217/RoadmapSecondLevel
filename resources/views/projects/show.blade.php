@@ -49,23 +49,26 @@
                             </div>
                         </div>
 
-                        <a href="{{route('users.show', $project->user->id)}}">
-                            <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
-                                <div class="flex gap-3 pb-3">
-                                    <h1 class="w-56 h-2 mt-4 rounded-lg">Related User: </h1>
-                                    <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->user->name}}</h1>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="{{route('clients.edit', $project->client->id)}}">
-                            <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
-                                <div class="flex gap-3 pb-3">
-                                    <h1 class="w-56 h-2 mt-4 rounded-lg">Related Client: </h1>
-                                    <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->client->company}}</h1>
-                                </div>
-                            </div>
-                        </a>
+                            @if($project->user)
+                                <a href="{{route('users.show', $project->user->id)}}">
+                                    <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
+                                        <div class="flex gap-3 pb-3">
+                                            <h1 class="w-56 h-2 mt-4 rounded-lg">Related User: </h1>
+                                            <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->user->name}}</h1>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
+                            @if($project->client)
+                                <a href="{{route('clients.edit', $project->client->id)}}">
+                                    <div class="rounded-lg shadow-2xl max-w-full px-5 py-3 hover:scale-110 transition-all ease-in-out cursor-pointer">
+                                        <div class="flex gap-3 pb-3">
+                                            <h1 class="w-56 h-2 mt-4 rounded-lg">Related Client: </h1>
+                                            <h1 class="w-56 mt-4 rounded-lg text-gray-500 font-semibold h-full">{{$project->client->company}}</h1>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
                     </div>
                 </div>
             </section>

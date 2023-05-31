@@ -8,6 +8,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Profile\ProjectController as ProfileProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);
 
     Route::prefix('profile')->name('profile.')->group(function () {
-       Route::get('/', ProfileController::class)->name('user');
+       Route::get('/', [ProfileController::class, 'index'])->name('user');
 
-       Route::get('projects', function () {
-           dd(auth()->user()->projects);
-       })->name('projects');
+        Route::post('/save', [ProfileController::class, 'save'])->name('save');
+
+       Route::get('projects', ProfileProjectController::class)->name('projects');
     });
 
     Route::prefix('notifications')->name('notifications.')->group(function (){
