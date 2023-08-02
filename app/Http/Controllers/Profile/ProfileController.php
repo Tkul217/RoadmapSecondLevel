@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\Repositories\UserRepositoryInterface;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    protected UserRepositoryInterface $userRepository;
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
         return view('profile.index', [
@@ -20,7 +29,7 @@ class ProfileController extends Controller
     {
         $data = $request->validated();
 
-        Auth::user()?->update($data);
+        $this->userRepository->update($data, Auth::user());
 
         return redirect()->route('profile.user')->with('success', 'User data successfully updated');
     }

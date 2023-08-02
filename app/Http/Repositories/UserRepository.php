@@ -20,4 +20,9 @@ class UserRepository implements UserRepositoryInterface
             ->with($relations)
             ->paginate();
     }
+
+    public function update(array $data, User $user): bool
+    {
+        return $user->update($data);
+    }
 }
