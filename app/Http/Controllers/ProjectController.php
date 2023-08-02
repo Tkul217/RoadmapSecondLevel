@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ProjectMediaService;
-use App\Models\Client;
+use App\Http\Interfaces\ProjectInterface;
+use App\Http\Interfaces\ProjectMediaInterface;
+use App\Http\Interfaces\Repositories\ProjectRepositoryInterface;
 use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
+    protected $project;
+    protected $projectRepository;
     protected $media;
 
-    public function __construct(ProjectMediaService $projectMediaService)
+    public function __construct(
+        ProjectInterface $project,
+        ProjectRepositoryInterface $projectRepository,
+        ProjectMediaInterface $media
+    )
     {
-        $this->media = $projectMediaService;
+        $this->media = $media;
+        $this->project = $project;
+        $this->projectRepository = $projectRepository;
     }
 
     public function index(Request $request)
     {
-        $projects = Project::query()
-            ->when($request->has('user_id'), function ($query) use ($request){
-                return $query->where('user_id', $request->get('user_id'));
-            })
-            ->when($request->has('client_id'), function ($query) use ($request) {
-                return $query->where('client_id', $request->get('client_id'));
-            })
-            ->paginate();
+        $projects = $this->projectRepository->filter($request);
+
         return view('projects.index', [
             'projects' => $projects
         ]);
@@ -39,7 +40,7 @@ class ProjectController extends Controller
     {
         $this->authorize('create', Project::class);
 
-        $data = $this->preparingData();
+        $data = $this->project->preparingData();
 
         return view('projects.create', [
             'users' => $data['users'],
@@ -52,13 +53,7 @@ class ProjectController extends Controller
     {
         $this->authorize('create', Project::class);
 
-        $data = $request->validated();
-
-        $project = Project::create($data);
-
-        if ($request->hasFile('image')){
-            $this->media->storeMedia($project, $data['image']);
-        }
+        $this->project->store($request);
 
         return redirect()->route('projects.index');
     }
@@ -82,7 +77,7 @@ class ProjectController extends Controller
     {
         $this->authorize('update', $project);
 
-        $data = $this->preparingData();
+        $data = $this->project->preparingData();
 
         if (!$project || !$data){
 
@@ -104,20 +99,7 @@ class ProjectController extends Controller
     {
         $this->authorize('update', $project);
 
-        if (!$project){
-
-            Log::error('Project now found');
-
-            abort(404);
-        }
-
-        $data = $request->validated();
-
-        $project->update($data);
-
-        if ($request->hasFile('image')){
-            $this->media->editMedia($project, $data['image']);
-        }
+        $this->project->update($request, $project);
 
         return redirect()->route('projects.show', $project);
     }
@@ -126,47 +108,8 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
-        if (!$project){
-            Log::error('Project not found');
-            abort(404);
-        }
-
-        DB::beginTransaction();
-
-        try {
-            $this->media->deleteMedia($project);
-
-            $project->delete();
-
-            DB::commit();
-
-        } catch (\Exception $exception) {
-
-            DB::rollBack();
-
-            Log::error($exception->getMessage());
-
-            throw new \Exception($exception->getMessage());
-        }
+        $this->project->destroy($project);
 
         return redirect()->route('projects.index');
-    }
-
-    public function preparingData(): array
-    {
-        $users = User::all();
-        $clients = Client::all();
-        $statuses = [
-          'Draft' => Project::DRAFT,
-          'Open' => Project::OPEN,
-          'In Process' => Project::IN_PROCESS,
-          'Finished' => Project::FINISHED
-        ];
-
-        return [
-            'users' => $users,
-            'clients' => $clients,
-            'statuses' => $statuses
-        ];
     }
 }
