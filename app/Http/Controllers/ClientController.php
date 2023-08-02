@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\Repositories\ClientInterface;
+use App\Http\Interfaces\Repositories\ClientRepositoryInterface;
 use App\Models\Client;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Database\QueryException;
 
 class ClientController extends Controller
 {
+    protected ClientRepositoryInterface $clientRepository;
+    protected ClientInterface $client;
+    public function __construct(
+        ClientRepositoryInterface $clientRepository,
+        ClientInterface $client
+    )
+    {
+        $this->clientRepository = $clientRepository;
+        $this->client = $client;
+    }
+
     public function index()
     {
-        $clients = Client::paginate();
+        $clients = $this->clientRepository->getAll();
         return view('clients.index', [
             'clients' => $clients
         ]);
@@ -23,9 +36,7 @@ class ClientController extends Controller
 
     public function store(ClientRequest $request)
     {
-        $data = $request->validated();
-
-        Client::create($data);
+        $this->client->store($request);
 
         return redirect()->route('clients.index');
     }
@@ -49,27 +60,15 @@ class ClientController extends Controller
 
     public function update(ClientRequest $request, Client $client)
     {
-        if (!$client){
-            abort(404);
-        }
-
-        $data = $request->validated();
-
-        $client->updateOrFail($data);
+        $this->client->update($request, $client);
 
         return redirect()->route('clients.index');
     }
 
     public function destroy(Client $client)
     {
-        if (!$client){
-            abort(404);
-        }
-        try {
-            $client->delete();
-        } catch (QueryException $exception) {
-            throw new \Exception('You cannot delete this client, because' . $exception->getMessage());
-        }
+        $this->client->destroy($client);
+
         return redirect()->route('clients.index');
     }
 }
