@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 class UserController extends Controller
 {
+    protected $userRepository;
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
-        $users = User::query()
-            ->with('tasks', 'projects')
-            ->paginate();
+        $users = $this->userRepository->getAll();
 
         return view('users.index', [
             'users' => $users
