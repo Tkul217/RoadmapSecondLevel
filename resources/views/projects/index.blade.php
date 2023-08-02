@@ -1,5 +1,11 @@
+@php
+    $filters = new \App\Helpers\FilterHelper(
+        type: 'project'
+    );
+@endphp
 <x-main :title="__('Project list')">
-    <div class="flex flex-col px-5">
+    <div class="flex flex-col p-5">
+        <x-filter :filters="$filters->main()"/>
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
 
             <table class="table-auto min-w-full text-left text-sm font-light">

@@ -1,5 +1,6 @@
 <x-main :title="__('Users list')">
-    <div class="flex flex-col px-5">
+    <div class="flex flex-col p-5">
+        <x-filter/>
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
 
             <table class="table-auto min-w-full text-left text-sm font-light">
