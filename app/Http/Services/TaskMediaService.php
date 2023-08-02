@@ -9,7 +9,7 @@ class TaskMediaService implements TaskMediaInterface
 {
     public function getMedia(Task $task)
     {
-        return $task->getMedia();
+        return $task->getMedia('task-files');
     }
 
     public function storeMedia(Task $task, $files): void

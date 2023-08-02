@@ -12,7 +12,7 @@ class ProjectRepository implements ProjectRepositoryInterface
     public function filter(Request $request): LengthAwarePaginator
     {
         $filteredData = Project::query();
-        foreach ($request->all() as $key => $value) {
+        foreach ($request->only(['user_id', 'client_id']) as $key => $value) {
             $filteredData->when($request->has($key), function ($query) use ($key, $value) {
                return $query->where($key, $value);
             });
