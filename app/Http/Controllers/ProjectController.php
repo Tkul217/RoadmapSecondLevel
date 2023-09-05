@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Generators\ProjectTableGenerator;
 use App\Http\Interfaces\ProjectInterface;
 use App\Http\Interfaces\ProjectMediaInterface;
 use App\Http\Interfaces\Repositories\ProjectRepositoryInterface;
@@ -12,27 +13,21 @@ use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
-    protected $project;
-    protected $projectRepository;
-    protected $media;
-
     public function __construct(
-        ProjectInterface $project,
-        ProjectRepositoryInterface $projectRepository,
-        ProjectMediaInterface $media
+        protected ProjectInterface $project,
+        protected ProjectRepositoryInterface $projectRepository,
+        protected ProjectMediaInterface $media,
     )
     {
-        $this->media = $media;
-        $this->project = $project;
-        $this->projectRepository = $projectRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, ProjectTableGenerator $generator)
     {
         $projects = $this->projectRepository->filter($request);
 
         return view('projects.index', [
-            'projects' => $projects
+            'projects' => $projects,
+            'table' => $generator->handle()
         ]);
     }
 

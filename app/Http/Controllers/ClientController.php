@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Generators\ClientTableGenerator;
 use App\Http\Interfaces\Repositories\ClientInterface;
 use App\Http\Interfaces\Repositories\ClientRepositoryInterface;
 use App\Models\Client;
@@ -10,22 +11,19 @@ use Illuminate\Database\QueryException;
 
 class ClientController extends Controller
 {
-    protected ClientRepositoryInterface $clientRepository;
-    protected ClientInterface $client;
     public function __construct(
-        ClientRepositoryInterface $clientRepository,
-        ClientInterface $client
+        protected ClientRepositoryInterface $clientRepository,
+        protected ClientInterface $client,
     )
     {
-        $this->clientRepository = $clientRepository;
-        $this->client = $client;
     }
 
-    public function index()
+    public function index(ClientTableGenerator $generator)
     {
         $clients = $this->clientRepository->getAll();
         return view('clients.index', [
-            'clients' => $clients
+            'clients' => $clients,
+            'table' => $generator->handle()
         ]);
     }
 

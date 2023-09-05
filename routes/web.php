@@ -6,7 +6,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Profile\ProjectController as ProfileProjectController;
 
@@ -23,7 +22,7 @@ use App\Http\Controllers\Profile\ProjectController as ProfileProjectController;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', DashboardController::class)->name('dashboard');
+    Route::view('/', 'welcome')->name('dashboard');
 
     Route::resource('clients', ClientController::class);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Generators\UserTableGenerator;
 use App\Http\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 class UserController extends Controller
@@ -14,12 +15,13 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(UserTableGenerator $generator)
     {
         $users = $this->userRepository->getAll();
 
         return view('users.index', [
-            'users' => $users
+            'users' => $users,
+            'table' => $generator->handle()
         ]);
     }
 

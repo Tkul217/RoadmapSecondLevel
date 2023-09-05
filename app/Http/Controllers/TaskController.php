@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Generators\TaskTableGenerator;
 use App\Http\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Http\Interfaces\TaskInterface;
 use App\Http\Interfaces\TaskMediaInterface;
@@ -12,28 +13,22 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    protected $taskMediaService;
-    protected $taskService;
-    protected $taskRepository;
-
     public function __construct(
-        TaskMediaInterface $taskMediaService,
-        TaskInterface $taskService,
-        TaskRepositoryInterface $taskRepository
+        protected TaskMediaInterface $taskMediaService,
+        protected TaskInterface $taskService,
+        protected TaskRepositoryInterface $taskRepository
     )
     {
-        $this->taskMediaService = $taskMediaService;
-        $this->taskService = $taskService;
-        $this->taskRepository = $taskRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, TaskTableGenerator $generator)
     {
         $tasks = $this->taskRepository->getAllWithRelations($request, ['project', 'user']);
 
         return view('tasks.index', [
             'tasks' => $tasks,
-            'title' => __('List tasks')
+            'title' => __('List tasks'),
+            'table' => $generator->handle()
         ]);
     }
 

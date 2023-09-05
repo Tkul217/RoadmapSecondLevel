@@ -1,5 +1,5 @@
 @props(['filters' => [] ])
-<div class="w-full shadow-2xl p-10 rounded-lg bg-white">
+<div class="w-full shadow-lg p-5 rounded-lg bg-white">
     <h1 class="font-medium text-xl pb-5">
         Filters
     </h1>
