@@ -6,6 +6,10 @@ use App\Http\Abstracts\FilterGenerator;
 
 class ProjectFilter extends FilterGenerator
 {
+    public function user(): void
+    {
+        $this->builder->where('user_id', request('user'));
+    }
     public function title($value): void
     {
         $this->builder->where('title', 'like', "%$value%");
