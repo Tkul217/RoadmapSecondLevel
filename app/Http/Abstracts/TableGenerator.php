@@ -2,7 +2,7 @@
 
 namespace App\Http\Abstracts;
 
-abstract class Generator
+abstract class TableGenerator
 {
     public function handle(): array
     {

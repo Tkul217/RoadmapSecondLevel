@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\Filter\UserFilter;
 use App\Http\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,6 +13,16 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::query()
             ->paginate();
+    }
+
+    public function getWithFilters(): LengthAwarePaginator
+    {
+        $filter = new UserFilter(
+            User::query(),
+            request()
+        );
+
+        return $filter->apply()->paginate();
     }
 
     public function getWithRelations(array $relations): LengthAwarePaginator

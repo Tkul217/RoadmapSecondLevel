@@ -2,14 +2,16 @@
 
 namespace App\Http\Generators;
 
-use App\Http\Abstracts\Generator;
+use App\Http\Abstracts\TableGenerator;
 
-class UserTableGenerator extends Generator
+class ClientTableTableGenerator extends TableGenerator
 {
     protected function actions(): array
     {
         return [
-            'show'
+            'show',
+            'edit',
+            'destroy'
         ];
     }
 
@@ -17,8 +19,9 @@ class UserTableGenerator extends Generator
     {
         return [
             'id',
-            'name',
-            'email',
+            'company',
+            'VAT',
+            'address',
             'created_at'
         ];
     }

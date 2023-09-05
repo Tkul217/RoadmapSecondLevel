@@ -11,4 +11,5 @@ interface TaskRepositoryInterface
     public function create(array $data): Task;
     public function update(Task $task, array $data): Task;
     public function getAllWithRelations(Request $request, $relations = []): LengthAwarePaginator;
+    public function getWithFilter(): LengthAwarePaginator;
 }

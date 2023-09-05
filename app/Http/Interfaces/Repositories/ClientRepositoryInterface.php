@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ClientRepositoryInterface
 {
     public function getAll(): LengthAwarePaginator;
+    public function getWithFilters(): LengthAwarePaginator;
     public function create(array $data): Client;
     public function updateOrFail(Client $client, array $data): bool;
     public function delete(Client $client): bool;

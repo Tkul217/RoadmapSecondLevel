@@ -2,9 +2,9 @@
 
 namespace App\Http\Generators;
 
-use App\Http\Abstracts\Generator;
+use App\Http\Abstracts\TableGenerator;
 
-class ProjectTableGenerator extends Generator
+class ProjectTableTableGenerator extends TableGenerator
 {
     protected function fields(): array
     {

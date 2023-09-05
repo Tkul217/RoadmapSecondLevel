@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Generators\ProjectTableGenerator;
+use App\Http\Generators\ProjectTableTableGenerator;
 use App\Http\Interfaces\ProjectInterface;
 use App\Http\Interfaces\ProjectMediaInterface;
 use App\Http\Interfaces\Repositories\ProjectRepositoryInterface;
@@ -21,9 +21,9 @@ class ProjectController extends Controller
     {
     }
 
-    public function index(Request $request, ProjectTableGenerator $generator)
+    public function index(Request $request, ProjectTableTableGenerator $generator)
     {
-        $projects = $this->projectRepository->filter($request);
+        $projects = $this->projectRepository->getWithFilters($request);
 
         return view('projects.index', [
             'projects' => $projects,

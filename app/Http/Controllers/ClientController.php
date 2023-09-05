@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Generators\ClientTableGenerator;
+use App\Http\Generators\ClientTableTableGenerator;
 use App\Http\Interfaces\Repositories\ClientInterface;
 use App\Http\Interfaces\Repositories\ClientRepositoryInterface;
 use App\Models\Client;
@@ -18,9 +18,9 @@ class ClientController extends Controller
     {
     }
 
-    public function index(ClientTableGenerator $generator)
+    public function index(ClientTableTableGenerator $generator)
     {
-        $clients = $this->clientRepository->getAll();
+        $clients = $this->clientRepository->getWithFilters();
         return view('clients.index', [
             'clients' => $clients,
             'table' => $generator->handle()

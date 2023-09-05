@@ -7,5 +7,5 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProjectRepositoryInterface
 {
-    public function filter(Request $request): LengthAwarePaginator;
+    public function getWithFilters(): LengthAwarePaginator;
 }

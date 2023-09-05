@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\Filter\ClientFilter;
 use App\Http\Interfaces\Repositories\ClientRepositoryInterface;
 use App\Models\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -11,6 +12,16 @@ class ClientRepository implements ClientRepositoryInterface
     public function getAll(): LengthAwarePaginator
     {
         return Client::paginate();
+    }
+
+    public function getWithFilters(): LengthAwarePaginator
+    {
+        $filter = new ClientFilter(
+            Client::query(),
+            request()
+        );
+
+        return $filter->apply()->paginate();
     }
 
     public function create(array $data): Client

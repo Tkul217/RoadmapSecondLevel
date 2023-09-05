@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\Filter\ProjectFilter;
 use App\Http\Interfaces\Repositories\ProjectRepositoryInterface;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -9,14 +10,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProjectRepository implements ProjectRepositoryInterface
 {
-    public function filter(Request $request): LengthAwarePaginator
+    public function getWithFilters(): LengthAwarePaginator
     {
-        $filteredData = Project::query();
-        foreach ($request->only(['user_id', 'client_id']) as $key => $value) {
-            $filteredData->when($request->has($key), function ($query) use ($key, $value) {
-               return $query->where($key, $value);
-            });
-        }
-        return $filteredData->paginate();
+        $filter = new ProjectFilter(
+          Project::query(),
+          request()
+        );
+
+        return $filter->apply()->paginate();
     }
 }

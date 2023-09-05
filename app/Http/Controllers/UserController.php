@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Generators\UserTableGenerator;
+use App\Http\Filter\UserFilter;
+use App\Http\Generators\UserTableTableGenerator;
 use App\Http\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 class UserController extends Controller
 {
-    protected $userRepository;
     public function __construct(
-        UserRepositoryInterface $userRepository
+        protected UserRepositoryInterface $userRepository
     )
     {
-        $this->userRepository = $userRepository;
     }
 
-    public function index(UserTableGenerator $generator)
+    public function index(
+        UserTableTableGenerator $generator
+    )
     {
-        $users = $this->userRepository->getAll();
+        $users = $this->userRepository->getWithFilters();
 
         return view('users.index', [
             'users' => $users,

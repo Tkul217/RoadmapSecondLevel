@@ -2,9 +2,9 @@
 
 namespace App\Http\Generators;
 
-use App\Http\Abstracts\Generator;
+use App\Http\Abstracts\TableGenerator;
 
-class TaskTableGenerator extends Generator
+class TaskTableTableGenerator extends TableGenerator
 {
     protected function actions(): array
     {

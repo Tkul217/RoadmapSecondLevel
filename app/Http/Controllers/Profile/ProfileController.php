@@ -10,12 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    protected UserRepositoryInterface $userRepository;
     public function __construct(
-        UserRepositoryInterface $userRepository
+        protected UserRepositoryInterface $userRepository
     )
     {
-        $this->userRepository = $userRepository;
     }
 
     public function index()

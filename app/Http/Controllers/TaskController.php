@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Generators\TaskTableGenerator;
+use App\Http\Generators\TaskTableTableGenerator;
 use App\Http\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Http\Interfaces\TaskInterface;
 use App\Http\Interfaces\TaskMediaInterface;
@@ -21,7 +21,7 @@ class TaskController extends Controller
     {
     }
 
-    public function index(Request $request, TaskTableGenerator $generator)
+    public function index(Request $request, TaskTableTableGenerator $generator)
     {
         $tasks = $this->taskRepository->getAllWithRelations($request, ['project', 'user']);
 

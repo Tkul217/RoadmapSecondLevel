@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\Filter\TaskFilter;
 use App\Http\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -36,5 +37,15 @@ class TaskRepository implements TaskRepositoryInterface
         }
 
         return $filteredData->paginate();
+    }
+
+    public function getWithFilter(): LengthAwarePaginator
+    {
+        $filter = new TaskFilter(
+            Task::query(),
+            request()
+        );
+
+        return $filter->apply()->paginate();
     }
 }
