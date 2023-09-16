@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [NotificationController::class, 'index'])->name('index');
         Route::post('/readNotifications', [NotificationController::class, 'readNotifications'])->name('read-notifications');
     });
+    Route::get('tasks/{task}/{file}', [TaskController::class, 'downloadFile'])->name('tasks.downloadFile');
 });
 
 require __DIR__ . '/auth.php';

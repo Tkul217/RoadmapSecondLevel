@@ -10,6 +10,7 @@ use App\Models\Task;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class TaskController extends Controller
 {
@@ -32,6 +33,16 @@ class TaskController extends Controller
         ]);
     }
 
+    public function create(){
+        return view('tasks.create', $this->getData());
+    }
+
+    public function store(TaskRequest $request){
+        $this->taskService->store($request);
+
+        return redirect()->route('tasks.index');
+    }
+
     public function show(Task $task){
         if (!$task){
 
@@ -43,16 +54,6 @@ class TaskController extends Controller
             'task' => $task,
             'files' => $this->taskMediaService->getMedia($task)
         ]);
-    }
-
-    public function create(){
-        return view('tasks.create', $this->getData());
-    }
-
-    public function store(TaskRequest $request){
-        $this->taskService->store($request);
-
-        return redirect()->route('tasks.index');
     }
 
     public function edit(Task $task){
@@ -78,5 +79,10 @@ class TaskController extends Controller
         $this->taskService->destroy($task);
 
         return redirect()->route('tasks.index');
+    }
+
+    public function downloadFile(Task $task, Media $file): Media
+    {
+        return $file;
     }
 }
